@@ -4,12 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+process.env.TZ = 'America/Vancouver';
 
 
 var index = require('./routes/index');
+
+// var index = require('./lib/api');
+
 var users = require('./routes/users');
-// var api = require('./api.js');
-var data = require('./lib/data');
+
 
 
 var app = express();
