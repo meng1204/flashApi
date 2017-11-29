@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+
 var FlashPayDataBase = require('../lib/data');
 var FlashPayUnifiedOrder = require('../lib/data');
 var FlashPayApi = require('../lib/api');
@@ -10,7 +11,7 @@ process.env.TZ = 'America/Vancouver';
 
 
 var p = new FlashPayApi;
-console.log("p.getMillisecond():" + p.getMillisecond());
+// console.log("p.getMillisecond():" + p.getMillisecond());
 
 
 var s = new FlashPayDataBase;
@@ -22,6 +23,7 @@ console.log("s.getNonceStr():" + s.getNonceStr());
 console.log("s.toSignParams():" + s.toSignParams());
 console.log("s.makeSign():" + s.setSign());
 console.log("s.toBodyParams():" + s.toBodyParams());
+console.log("s.toQueryParams():" + s.toQueryParams());
 
 var w = new FlashPayUnifiedOrder;
 var time = new Date();
@@ -50,6 +52,15 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express asdjlasdl' });
   console.log("test");
 });
+
+// router.post('/s', function (req, res) {
+//   res.send('Got a POST request');
+// });
+
+
+
+
+
 
 
 

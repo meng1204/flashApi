@@ -11,7 +11,7 @@ var index = require('./routes/index');
 
 // var index = require('./lib/api');
 
-var users = require('./routes/users');
+var qr = require('./routes/qr');
 
 
 
@@ -29,8 +29,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+app.all('/', index);
+app.use('/qr', qr);
+
+
+// app.get('/',function(req,res){
+//   res.send("Hello word");
+// })
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
