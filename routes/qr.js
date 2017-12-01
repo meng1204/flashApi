@@ -20,7 +20,7 @@ w.setOrderId(PARTNER_CODE + time);
 w.setDescription("test");
 w.setPrice("100");
 w.setCurrency("CAD");
-w.setNotifyUrl("https://www.flashpayment.com/notify_url");
+w.setNotifyUrl("https://pay.alphapay.ca/notify_url");
 w.setOperator("123456");
 
 
