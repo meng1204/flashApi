@@ -20,23 +20,36 @@ var w = new FlashPayUnifiedOrder;
 var time = new Date();
 w.setOrderId(PARTNER_CODE + time);
 w.setDescription("test");
-w.setPrice("100");
+w.setPrice("1000");
 w.setCurrency("CAD");
 w.setNotifyUrl("https://pay.alphapay.ca/notify_url");
 w.setOperator("123456");
 var currency = w.getCurrency();
-if(){
+if(!empty(currency) && currency == 'CNY'){
 
+  var inputRate = new FlashPayExchangeRate();
+ 
+  p.exchangeRate(inputRate).then(function(rate){
+    if(rate['return_code'] == 'SUCCESS'){
+      var real_pay_amt = w.getPrice()/rate['rate']/100;
+      if (real_pay_amt < 0.01){
+        console.log("人民币转换加币后必须大于0.01加币");
+      }
+    }
+  });
 }
 
 
 
+p.qrOrder(w).then(function(result){
+  console.log("type of result  " + typeof result);
 
-// p.qrOrder(w).then(function(result){
-//   console.log("type of result  " + typeof result);
+  console.log("qr/// result  " + util.inspect(result,true));
+  var url2 = result["code_url"];
 
-//   console.log("qr/// result  " + util.inspect(result,true));
-// });
+  console.log("url2  " + url2);
+
+});
 
 router.get('/', function(req, res, next) {
   res.render('qr');
