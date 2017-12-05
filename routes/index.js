@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 
-var FlashPayDataBase = require('../lib/data');
-var FlashPayUnifiedOrder = require('../lib/data');
+var FlashPayDataBase = require('../lib/data').FlashPayDataBase;
+var FlashPayUnifiedOrder = require('../lib/data').FlashPayUnifiedOrder;
 var FlashPayApi = require('../lib/api');
 
 var PARTNER_CODE =require('../lib/config').PARTNER_CODE;  //get PARTNER_CODE and CREDENTIAL_CODE
@@ -12,7 +12,7 @@ process.env.TZ = 'America/Vancouver';
 
 
 
-var p = new FlashPayApi;
+// var p = new FlashPayApi;
 // console.log("p.getMillisecond():" + p.getMillisecond());
 
 

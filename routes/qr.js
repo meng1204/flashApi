@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const util = require('util'); // show object
+var empty = require('is-empty'); //check if it empty
 
 
 var PARTNER_CODE =require('../lib/config').PARTNER_CODE;  //get PARTNER_CODE and CREDENTIAL_CODE
@@ -10,7 +11,6 @@ process.env.TZ = 'America/Vancouver';
 
 var FlashPayApi = require('../lib/api');
 var FlashPayUnifiedOrder = require('../lib/data').FlashPayUnifiedOrder;
-var FlashPayResults = require('../lib/data').FlashPayResults;
 
 
 var p = new FlashPayApi;
@@ -24,22 +24,20 @@ w.setPrice("100");
 w.setCurrency("CAD");
 w.setNotifyUrl("https://pay.alphapay.ca/notify_url");
 w.setOperator("123456");
+var currency = w.getCurrency();
+if(){
+
+}
 
 
 
-//  p.qrOrder(w).then(function(response){
-//   console.log("qr/// result  " + response);
+
+// p.qrOrder(w).then(function(result){
+//   console.log("type of result  " + typeof result);
+
+//   console.log("qr/// result  " + util.inspect(result,true));
 // });
-var result =  p.qrOrder(w);
-// console.log("p :" + util.inspect(p, false, null));
-// console.log("w :" + util.inspect(w, false, null));
-console.log("result :" + util.inspect(result, false, null));
-// s.setOrderId(s.partner_code);
 
-var s = new FlashPayResults;
-var result = s.fromArray();
-console.log("result :" + util.inspect(result, false, null))
-/* GET qr. */
 router.get('/', function(req, res, next) {
   res.render('qr');
 });
