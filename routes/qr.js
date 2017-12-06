@@ -39,7 +39,7 @@ var currency = input.getCurrency();
 //if(!empty(currency) && currency == 'CAD'){
 
   var inputRate = new FlashPayExchangeRate();
-  console.log("inputerada  " + util.inspect(inputRate,true));
+  //console.log("inputerada  " + util.inspect(inputRate,true));
   p.exchangeRate(inputRate).then(function(rate){
     if(rate['return_code'] == 'SUCCESS'){
       var real_pay_amt = input.getPrice()/rate['rate']/100;
@@ -56,12 +56,12 @@ var base64; // QRcode image
 var pay_url; // url path
 
 p.qrOrder(input).then(function(result){
-  console.log("type of result  " + typeof result);
+  //console.log("type of result  " + typeof result);
 
-  console.log("qr/// result  " + util.inspect(result,true));
+  //console.log("qr/// result  " + util.inspect(result,true));
   var url2 = result["code_url"];
 
-  console.log("url2  " + url2);
+  //console.log("url2  " + url2);
   // get QRcode
   base64 = qrcode.toDataURL(url2,4);
   //console.log("base64 " + base64);

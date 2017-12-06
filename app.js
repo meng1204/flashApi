@@ -12,7 +12,7 @@ var index = require('./routes/index');
 // var index = require('./lib/api');
 
 var qr = require('./routes/qr');
-
+var jsApi = require('./routes/jsApi');
 
 
 var app = express();
@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.all('/', index);
 app.use('/qr', qr);
+app.use('/jsApi', jsApi);
 
 
 // app.get('/',function(req,res){
