@@ -20,7 +20,7 @@ var w = new FlashPayUnifiedOrder;
 var time = new Date();
 w.setOrderId(PARTNER_CODE + time);
 w.setDescription("test");
-w.setPrice("1000");
+w.setPrice("1");
 w.setCurrency("CAD");
 w.setNotifyUrl("https://pay.alphapay.ca/notify_url");
 w.setOperator("123456");
