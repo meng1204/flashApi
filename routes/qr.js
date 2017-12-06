@@ -13,6 +13,7 @@ process.env.TZ = 'America/Vancouver';
 
 var FlashPayApi = require('../lib/api');
 var FlashPayUnifiedOrder = require('../lib/data').FlashPayUnifiedOrder;
+var FlashPayExchangeRate = require('../lib/data').FlashPayExchangeRate;
 var FlashPayRedirect = require('../lib/data').FlashPayRedirect;
 
 
@@ -35,10 +36,10 @@ input.setCurrency("CAD");
 input.setNotifyUrl("https://pay.alphapay.ca/notify_url");
 input.setOperator("123456");
 var currency = input.getCurrency();
-if(!empty(currency) && currency == 'CNY'){
+//if(!empty(currency) && currency == 'CAD'){
 
   var inputRate = new FlashPayExchangeRate();
-
+  console.log("inputerada  " + util.inspect(inputRate,true));
   p.exchangeRate(inputRate).then(function(rate){
     if(rate['return_code'] == 'SUCCESS'){
       var real_pay_amt = input.getPrice()/rate['rate']/100;
@@ -47,7 +48,7 @@ if(!empty(currency) && currency == 'CNY'){
       }
     }
   });
-}
+//}
 
 // scan QRcode
 var base64; // QRcode image
