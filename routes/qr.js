@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 const util = require('util'); // show object
 var empty = require('is-empty'); //check if it empty
+//var qrCode = require('qrcode'); //generate qrcode
+var qrcode = require('qrcode-js');
 
 
 var PARTNER_CODE =require('../lib/config').PARTNER_CODE;  //get PARTNER_CODE and CREDENTIAL_CODE
@@ -28,7 +30,7 @@ var currency = w.getCurrency();
 if(!empty(currency) && currency == 'CNY'){
 
   var inputRate = new FlashPayExchangeRate();
- 
+
   p.exchangeRate(inputRate).then(function(rate){
     if(rate['return_code'] == 'SUCCESS'){
       var real_pay_amt = w.getPrice()/rate['rate']/100;
@@ -38,9 +40,7 @@ if(!empty(currency) && currency == 'CNY'){
     }
   });
 }
-
-
-
+var base64;
 p.qrOrder(w).then(function(result){
   console.log("type of result  " + typeof result);
 
@@ -48,11 +48,14 @@ p.qrOrder(w).then(function(result){
   var url2 = result["code_url"];
 
   console.log("url2  " + url2);
+  base64 = qrcode.toDataURL(url2,4);
+  //console.log("base64 " + base64);
 
 });
 
 router.get('/', function(req, res, next) {
-  res.render('qr');
+  console.log("base64 " + base64);
+  res.render('qr', {qrcode: base64});
 });
 
 module.exports = router;
