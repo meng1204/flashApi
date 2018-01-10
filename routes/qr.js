@@ -11,22 +11,22 @@ var CREDENTIAL_CODE =require('../lib/config').CREDENTIAL_CODE
 process.env.TZ = 'America/Vancouver';
 
 
-var FlashPayApi = require('../lib/api');
-var FlashPayUnifiedOrder = require('../lib/data').FlashPayUnifiedOrder;
-var FlashPayExchangeRate = require('../lib/data').FlashPayExchangeRate;
-var FlashPayRedirect = require('../lib/data').FlashPayRedirect;
+var AlphaPayApi = require('../lib/api');
+var AlphaPayUnifiedOrder = require('../lib/data').AlphaPayUnifiedOrder;
+var AlphaPayExchangeRate = require('../lib/data').AlphaPayExchangeRate;
+var AlphaPayRedirect = require('../lib/data').AlphaPayRedirect;
 
 
 /**
  * 流程：
  * 1、创建QRCode支付单，取得code_url，生成二维码
  * 2、用户扫描二维码，进行支付
- * 3、支付完成之后，FlashPay服务器会通知支付成功
+ * 3、支付完成之后，AlphaPay服务器会通知支付成功
  * 4、在支付成功通知中需要查单确认是否真正支付成功（见：notify.php）
  */
 //获取扫码
 
-var p = new FlashPayApi;
+var p = new AlphaPayApi;
 var input = new FlashPayUnifiedOrder;
 var time = new Date();
 input.setOrderId(PARTNER_CODE + time);
@@ -38,7 +38,7 @@ input.setOperator("123456");
 var currency = input.getCurrency();
 //if(!empty(currency) && currency == 'CAD'){
 
-  var inputRate = new FlashPayExchangeRate();
+  var inputRate = new AlphaPayExchangeRate();
   //console.log("inputerada  " + util.inspect(inputRate,true));
   p.exchangeRate(inputRate).then(function(rate){
     if(rate['return_code'] == 'SUCCESS'){
@@ -67,7 +67,7 @@ p.qrOrder(input).then(function(result){
   //console.log("base64 " + base64);
 
   // Redirect
-  var inputObj = new FlashPayRedirect();
+  var inputObj = new AlphaPayRedirect();
   inputObj.setRedirect(urlencode('order_id='+ input.getOrderId().toString()));
   pay_url = p.getQRRedirectUrl(result['pay_url'],inputObj);
   //console.log("pay_url " + pay_url);
