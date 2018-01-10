@@ -10,14 +10,14 @@ var CREDENTIAL_CODE =require('../lib/config').CREDENTIAL_CODE
 process.env.TZ = 'America/Vancouver';
 
 
-var FlashPayApi = require('../lib/api');
-var FlashPayUnifiedOrder = require('../lib/data').FlashPayUnifiedOrder;
-var FlashPayJsApiRedirect = require('../lib/data').FlashPayJsApiRedirect;
+var AlphaPayApi = require('../lib/api');
+var AlphaPayUnifiedOrder = require('../lib/data').AlphaPayUnifiedOrder;
+var AlphaPayJsApiRedirect = require('../lib/data').AlphaPayJsApiRedirect;
 
 
 
-var p = new FlashPayApi;
-var input = new FlashPayUnifiedOrder;
+var p = new AlphaPayApi;
+var input = new AlphaPayUnifiedOrder;
 var time = new Date();
 input.setOrderId(PARTNER_CODE + time);
 input.setDescription("test");
@@ -28,7 +28,7 @@ input.setOperator("123456");
 var currency = input.getCurrency();
 if(!empty(currency) && currency == 'CNY'){
 
-  var inputRate = new FlashPayExchangeRate();
+  var inputRate = new AlphaPayExchangeRate();
 
   p.exchangeRate(inputRate).then(function(rate){
     if(rate['return_code'] == 'SUCCESS'){
@@ -43,7 +43,7 @@ if(!empty(currency) && currency == 'CNY'){
 var pay_url; // url path
 
 p.jsApiOrder(input).then(function(result){
-  var inputObj = new FlashPayJsApiRedirect;
+  var inputObj = new AlphaPayJsApiRedirect;
   //console.log("jsApiOrder/// result  " + util.inspect(result,true));
   //console.log("jsApiOrder " + util.inspect(inputObj,true));
   inputObj.setDirectPay('true');
