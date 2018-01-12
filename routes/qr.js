@@ -11,10 +11,10 @@ var CREDENTIAL_CODE =require('../lib/config').CREDENTIAL_CODE
 process.env.TZ = 'America/Vancouver';
 
 
-var AlphaPayApi = require('../lib/api');
-var AlphaPayUnifiedOrder = require('../lib/data').AlphaPayUnifiedOrder;
-var AlphaPayExchangeRate = require('../lib/data').AlphaPayExchangeRate;
-var AlphaPayRedirect = require('../lib/data').AlphaPayRedirect;
+var FlashPayApi = require('../lib/api');
+var FlashPayUnifiedOrder = require('../lib/data').FlashPayUnifiedOrder;
+var FlashPayExchangeRate = require('../lib/data').FlashPayExchangeRate;
+var FlashPayRedirect = require('../lib/data').FlashPayRedirect;
 
 
 /**
@@ -26,7 +26,7 @@ var AlphaPayRedirect = require('../lib/data').AlphaPayRedirect;
  */
 //获取扫码
 
-var p = new AlphaPayApi;
+var p = new FlashPayApi;
 var input = new FlashPayUnifiedOrder;
 var time = new Date();
 input.setOrderId(PARTNER_CODE + time);
@@ -38,7 +38,7 @@ input.setOperator("123456");
 var currency = input.getCurrency();
 //if(!empty(currency) && currency == 'CAD'){
 
-  var inputRate = new AlphaPayExchangeRate();
+  var inputRate = new FlashPayExchangeRate();
   //console.log("inputerada  " + util.inspect(inputRate,true));
   p.exchangeRate(inputRate).then(function(rate){
     if(rate['return_code'] == 'SUCCESS'){
@@ -67,7 +67,7 @@ p.qrOrder(input).then(function(result){
   //console.log("base64 " + base64);
 
   // Redirect
-  var inputObj = new AlphaPayRedirect();
+  var inputObj = new FlashPayRedirect();
   inputObj.setRedirect(urlencode('order_id='+ input.getOrderId().toString()));
   pay_url = p.getQRRedirectUrl(result['pay_url'],inputObj);
   //console.log("pay_url " + pay_url);
